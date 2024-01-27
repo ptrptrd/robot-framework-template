@@ -1,4 +1,4 @@
-name: checks
+name: push
 on: [push]
 jobs:
   dryrun:

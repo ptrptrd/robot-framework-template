@@ -1,4 +1,4 @@
-name: checks
+name: pullrequest
 on:
   pull_request:
     types: [opened, reopened]
