@@ -17,12 +17,28 @@ black = "^23.11.0"
 isort = "^5.12.0"
 pre-commit = "^3.5.0"
 pylint = "^3.0.2"
+python-semantic-release = "^8.3.0"
 robotframework-tidy = "^4.6.0"
 
 [tool.robotidy]
 configure = [
     "AlignVariablesSection:min_width=10"
 ]
+
+[tool.semantic_release]
+branch = "main"
+build_command = "pip install poetry && poetry build"
+commit_version_number = true
+commit_message = "chore(release): {version}"
+major_on_zero = false
+tag_format = "{version}"
+version_toml = {
+    "pyproject.toml:tool.poetry.version"
+}
+
+[tool.semantic_release.changelog]
+changelog_file = "CHANGELOG.md"
+exclude_commit_patterns = ["^merge:.*"]
 
 [build-system]
 requires = ["poetry-core"]
