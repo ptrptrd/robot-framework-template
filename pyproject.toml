@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "robotlib"
+version = "0.0.1"
+description = "Robot Framework Template"
+authors = ["ptrptrd"]
+readme = "README.md"
+packages = [
+    { include = "lib", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+robotframework = "^7.0.0"
+
+[tool.poetry.dev-dependencies]
+black = "^23.11.0"
+isort = "^5.12.0"
+pre-commit = "^3.5.0"
+pylint = "^3.0.2"
+robotframework-tidy = "^4.6.0"
+
+[tool.robotidy]
+configure = [
+    "AlignVariablesSection:min_width=10"
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

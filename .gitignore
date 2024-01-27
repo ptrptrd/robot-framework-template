@@ -1,0 +1,11 @@
+# robot
+log.html
+output.xml
+report.html
+
+# poetry
+dist/
+.venv/
+
+# python
+*.pyc

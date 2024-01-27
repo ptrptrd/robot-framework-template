@@ -1,0 +1,24 @@
+{
+    "name": "Robot Framework Template", 
+
+    // For Robot Framework Browser: 
+    // "image": "marketsquare/robotframework-browser:18.0",
+    // "image": "mcr.microsoft.com/playwright:v1.41.1-jammy",
+    "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
+
+    // Commands to be run after container is created
+    "postCreateCommand": "sh .devcontainer/postcreatecommand.sh",
+
+    // Tool Specific Configurations
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            },
+            "extensions": [
+                "ms-python.python",
+                "robocorp.robotframework-lsp"
+            ]
+        }
+    }
+}
