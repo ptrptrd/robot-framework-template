@@ -2,9 +2,11 @@ name: checks
 on: [push]
 jobs:
   dryrun:
-    runs-on: mcr.microsoft.com/playwright:v1.41.1-jammy
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        node-version: '21'
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
