@@ -1,0 +1,55 @@
+name: checks
+on: [push]
+jobs:
+  dryrun:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install poetry
+      - name: Install project dependencies
+        run: |
+          poetry config virtualenvs.in-project true
+          poetry lock --no-update
+          poetry install
+      - name: Dry run
+        run: |
+          poetry run robot --pythonpath . --dryrun .
+
+  robot-lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install robocop
+        run: |
+          pip install robotframework-robocop
+      - name: Lint robot files
+        run: |
+          robocop -A ./robocop.cfg
+
+  python-lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install poetry
+      - name: Install project dependencies
+        run: |
+          poetry config virtualenvs.in-project true
+          poetry lock --no-update
+          poetry install
+      - name: Parse python lint args
+        id: parse
+        uses: mikefarah/yq@master
+        with:
+          cmd: cat .pre-commit-config.yaml | yq -r '.repos.[] | select (.hooks[0].id == "pylint").hooks[0].args | join(" ")'
+      - name: Run pylint
+        run: |
+          poetry run pylint ${{ steps.parse.outputs.result }}
